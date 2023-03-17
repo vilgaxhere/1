@@ -1,0 +1,356 @@
+Practical 1 - Write a program for tokenization of given input
+
+goto python terminial run this
+>>> import nltk
+>>> nltk.download()
+download all the file from popup windows
+
+import nltk
+s = "I cant do this I wont do it!"
+print(nltk.sent_tokenize(s))
+print(nltk.word_tokenize(s))
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Practical 2 - Write a program for generating regular expressions for regular grammar
+
+import re 
+S = 'A computer Science portal for Student'
+match = re.search(r'portal',S)
+print('Start Index: ',match.start())
+print('End Index: ',match.end())
+
+import re
+p = re.compile('ab*')
+print(p.findall('ababbaabbb'))
+
+import re
+S = """hello my number is 5489657545 and my friend number is 48596575 """
+regex = '\d+'
+match = re.findall(regex, S)
+print(match)
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Practical 3 - Write a program for generating derivation sequence / language for the given sequence of
+productions - IN C++
+
+#include <iostream>
+#include <time.h>
+using namespace std;
+ int main()
+{
+    srand(time(0));
+    int max = 1 + rand() % 15;
+    int i = 0;
+    while (i < max) {
+        char c = 'a' + rand() % 2;
+        cout << c << " ";
+        i++;
+        if (c == 'a') {
+            if (i == max)
+                cout << "YES\n";
+            while (i < max) {
+                c = 'a' + rand() % 2;
+                cout << c << " ";
+                i++;
+                if (c == 'a' && i == max) {
+                    cout << "\nYES\n";
+                }
+                else if (i == max) {
+                    cout << "\nNO\n";
+                }
+            }
+        }
+        else {
+            while (i < max) {
+                c = 'a' + rand() % 2;
+                cout << c << " ";
+                i++;
+            }
+            cout << "\nNO\n";
+        }
+    }
+    return 0;
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Practical 4 - Design a Program for creating machine that accepts three consecutive one.
+
+import kotlin.random.Random
+fun main() {
+        print(accConsecutiveOne())
+}
+fun accConsecutiveOne():Boolean{
+    var max = Random.nextInt(3,8)
+    var list:ArrayList<Int> = arrayListOf<Int>() 
+    var i:Int = 1;
+    var count:Int = 0;
+    while(i<max+1){
+        var a:Int = Random.nextInt(0,2)
+        list.add(a)
+        i++
+    } 
+    var len = list.size - 1
+            for(j in 0..len){
+            if(list[j] == 1){
+                count++
+            }
+            if(list[j] == 0 && count<3){
+                count = 0
+            }
+        }
+    println(list)
+    return count >= 3
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Practical 5 - Design a Program for creating machine that accepts the string always ending with 101.
+
+import kotlin.random.Random
+fun main() {
+        println(alwaysEndingWith101())
+}
+fun alwaysEndingWith101():Boolean{
+    var max = Random.nextInt(3,8)
+    var list:ArrayList<Int> = arrayListOf<Int>(1,0,1,0,1)
+    
+    var i:Int = 1;
+    var count:Int = 0;
+ while(i<max+1){
+        var a:Int = Random.nextInt(0,2)
+        list.add(a)
+        i++
+    }
+    
+    var len = list.size - 1
+    println(list)
+        if(list[len] == 1 && list[len-1] == 0 && list[len-2] == 1){
+            return true
+        }
+    return false
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Practical 6 - Program to construct a DFA which accepts the language all 'a' before all 'b'
+
+# Function for state zero Q0
+def startStateQ0(s):
+    if (s == 'a'):
+        state = 1
+    elif (s == 'b'):
+        state = 2
+    else:
+        state = -1
+    return state
+# Function for first state Q1
+def firstStateQ1(s):
+    if (s == 'a'):
+        state = 1
+    elif (s == 'b'):
+        state = 2
+    else:
+        state = -1
+    return state
+# Function for second state Q2
+def secondStateQ2(s):
+    if (s == 'b'):
+        state = 2
+    elif (s == 'a'):
+        state = 3
+    else:
+        state = -1
+    return state
+# Function for third state Q3
+def thirdStateQ3(s):
+    state = 3
+    return state
+#Function to check
+#if the string is accepted or not
+def isAcceptedString(String):
+    l = len(String)
+ 
+    # dfa tells the number associated
+    # with the present dfa = state
+    state = 0
+    for i in range(l):
+        if (state == 0):
+            state = startStateQ0(String[i])
+        elif (state == 1):
+            state = firstStateQ1(String[i])
+        elif (state == 2):
+            state = secondStateQ2(String[i])
+        elif (state == 3):
+            state = thirdStateQ3(String[i])
+        else:
+            return 0
+    if(state == 1 or state == 2):
+        return 1
+    else:
+        return 0
+# Driver code
+if __name__ == "__main__":
+ 
+    String = "ab"
+    if (isAcceptedString(String)):
+        print("ACCEPTED")
+    else:
+        print("NOT ACCEPTED")
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Practical 7 - Practical to build a DFA that accepts string starting and ending different character
+
+state_transition = []
+def q1(s, i):
+ 
+    state_transition.append("q1")
+    if (i == len(s)):
+        return False
+ 
+    # state transitions
+    # a takes to q1, b takes to q2
+    if (s[i] == 'a'):
+        return q1(s, i + 1)
+    else:
+        return q2(s, i + 1)
+def q2(s, i):
+    state_transition.append("q2")
+    if (i == len(s)):
+        return True
+    # state transitions
+    # a takes to q1, b takes to q2
+    if (s[i] == 'a'):
+        return q1(s, i + 1)
+    else:
+        return q2(s, i + 1)
+def q3(s, i):
+    state_transition.append("q3")
+    if (i == len(s)):
+        return False
+    # state transitions
+    # a takes to q4, 1 takes to q3
+    if (s[i] == 'a'):
+        return q4(s, i + 1)
+    else:
+        return q3(s, i + 1)
+def q4(s, i):
+    state_transition.append("q4")
+    if (i == len(s)):
+        return True
+    # state transitions
+    # a takes to q4, b takes to q3
+    if (s[i] == 'a'):
+        return q4(s, i + 1)
+    else:
+        return q3(s, i + 1)
+def q0(s, i):
+    state_transition.append("q0")
+    if (i == len(s)):
+        return False
+    # state transitions
+    # a takes to q1, b takes to q3
+    if (s[i] == 'a'):
+        return q1(s, i + 1)
+    else:
+        return q3(s, i + 1)
+s = "ababb"
+# all state transitions are printed.
+# if is acceptable, print YES.
+# else NO is printed
+ans = q0(s, 0)
+if (ans):
+    print("YES")
+    # print transition state of given
+    # str
+    for it in state_transition:
+        print(it, end = " ")
+else:
+    print("NO")
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Practical 8 - Program to construct a DFA which accepts the language L = {aN|N >= 1}
+
+def isAcceptedDFA(s, N):
+    # Stores the count of characters
+    count = 0
+    # Iterate over the range [0, N]
+    for i in range(N):
+        # Count and check everya
+        # element for 'a'
+        if (s[i] == 'a'):
+            count += 1
+    # If string matches with DFA
+    if (count == N and count != 0):
+        print ("Accepted")
+    # If not matches
+    else :
+        print ("Not Accepted")
+# Driver Code
+if __name__ == '__main__':
+    S = "aaaaa"
+    # Function Call
+    isAcceptedDFA(S, len(S))
+
+Practical 9 - Design a program for accepting decimal number divisible by 2
+
+while True:
+    num = float(input("Enter a decimal number: "))
+    if num %  2 == 0:
+        print("Accepted")
+        break
+    else:
+        print("Number not divisible by 2")
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Practical 10 - Design a program for creating a maching which accepts string having equal no. of 1's an 2's
+
+def check_equal_zeros_ones(binary_string):
+    zeros = binary_string.count("0")
+    ones = binary_string.count("1")
+    if zeros == ones:
+        return True
+    else:
+        return False  
+binary_string = input("Enter a binary string: ")
+if check_equal_zeros_ones(binary_string):
+    print("The number of 0's and 1's are equal")
+else:
+    print("The number of 0's are 1's are not equal")
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Practical 11 - Design a program for creating machine which count number  of 1's and 0's in a given string
+
+def count_ones_and_zeros(binaryString):
+    ones= 0
+    zeros = 0
+    for char in binaryString:
+        if char == '1':
+            ones += 1
+        elif char == '0':
+            zeros += 1
+            
+    return print("number of ones " ,ones, ", and number of zeros" ,zeros)
+
+binaryString = input("Enter a binary string: ")
+count_ones_and_zeros(binaryString)
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Practical 12 - Design a PDA to accept WCWR where w is any string and WR is reverse of that string
+and C is a Special symbol
+
+def is_valid_WCWR(s):
+    if len(s) < 3 or s[len(s)//2] != 'C':
+        return False
+    w = s[:len(s)//2]
+    wr = s[:len(s)//2 -1:-1]
+    return w == wr
+s = input("Enter a string: ")
+if is_valid_WWR(s):
+    print("The string is valid")
+else:    
+    print("The string is not valid")
+
+
